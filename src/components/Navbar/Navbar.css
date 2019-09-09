@@ -1,0 +1,35 @@
+.header {
+    position: fixed;
+    width: 100%;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    box-shadow: 2px 2px 10px rgba(0,0,0, .1);
+    z-index: 999;
+}
+.header .logo {
+    width: 60px;
+    cursor: pointer;
+}
+.header .nav-menu{
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+.header .nav-menu li {
+    margin-right: 2rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.header .nav-menu li.active{
+    color: rgba(0,0,0,.3)
+}
+.header .nav-menu li:hover{
+    color: rgba(0,0,0,.3)
+}
+.header .cart {
+    font-size: 1rem;
+    cursor: pointer;
+}

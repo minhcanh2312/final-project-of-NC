@@ -1,0 +1,58 @@
+.side-bar {
+    width: 20%;
+    padding: 0 2rem;
+}
+.side-bar h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(0,0,0, 0.3);
+}
+.filter-form {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+.left-form, .right-form {
+    width: 106px !important;
+}
+.price-input {
+    display: block;
+    width: 90%;
+    padding: 5px;
+    outline: none
+}
+.price-input::-webkit-inner-spin-button, 
+.price-input::-webkit-outer-spin-button {
+    -webkit-appearance: none; 
+    margin: 0; 
+}
+.side-bar .left-form label,
+.side-bar .right-form label {
+    color: #000;
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block;
+}
+.side-bar button {
+    background: #000000b8;
+    display: block;
+    color: #fff;
+    width: 100%;
+    border: none;
+    margin-bottom: 10px;
+    outline: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50px;
+    letter-spacing: 2px
+}
+.side-bar .showOsBtn.active{
+    background: #fd5a5a
+}
+.side-bar .filterBtn:hover{
+    background: #fd5a5a;
+}
+.filter-with-price {
+    margin-top: 30px;
+}
