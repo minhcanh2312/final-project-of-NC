@@ -1,17 +1,19 @@
-import {SET_PRODUCTS,
-        NAVIGATE, 
-        ADD_TO_CART,
-        INCREASEMENT,
-        DECREASEMENT,
-        REMOVE_CART_ITEM,
-        CHANGE_QUANTITY,
-        SET_PRODUCT_DETAIL,
-        SHOW_IOS,
-        SHOW_ANDROID,
-        CHANGE_MIN_PRICE,
-        CHANGE_MAX_PRICE,
-        SET_DISPLAY_PRODUCTS
-    } from './actions'
+import {
+    SET_PRODUCTS,
+    NAVIGATE,
+    ADD_TO_CART,
+    INCREASEMENT,
+    DECREASEMENT,
+    REMOVE_CART_ITEM,
+    CHANGE_QUANTITY,
+    SET_PRODUCT_DETAIL,
+    SHOW_IOS,
+    SHOW_ANDROID,
+    CHANGE_MIN_PRICE,
+    CHANGE_MAX_PRICE,
+    SET_DISPLAY_PRODUCTS,
+    STAR_RATING
+} from './actions'
 
 const initialState = {
     activePage: 'home',
@@ -35,14 +37,14 @@ const initialState = {
 }
 
 function setProducts(state, action) {
-    return{...state, products: action.products}
+    return { ...state, products: action.products }
 }
 
 function setDisPlayProducts(state, action) {
     // let displayProducts = action.products.filter(product => {
     //     let {min, max} = state.filter.price
     //     let showOs = state.filter.showOs[product.os]
-        
+
     //     return  product.price > min && product.price <= max && showOs
     //     // return product.price > min 
     // })
@@ -51,7 +53,7 @@ function setDisPlayProducts(state, action) {
         ...state,
         filter: {
             ...state.filter,
-            price:{
+            price: {
                 ...state.filter.price,
                 min: state.filter.price_with_input.min,
                 max: state.filter.price_with_input.max
@@ -61,65 +63,96 @@ function setDisPlayProducts(state, action) {
 }
 
 function navigate(state, action) {
-    return {...state, activePage: action.page}
+    return { ...state, activePage: action.page }
 }
 
-function addToCart(state, action) {
-    action.payload.event.stopPropagation()
-    let {product} = action.payload
+function addToCart(state, action) { 
+    let { product } = action.payload
     let newCartItem
     let newShoppingCarts
     let productIndex = state.shoppingCarts.findIndex(item => item.id === product.id)
-
-    if(productIndex === -1) {
-        newCartItem = {...product, quantity: 1}
-        newShoppingCarts = [...state.shoppingCarts, newCartItem]
-    }else{
-        newShoppingCarts = [...state.shoppingCarts]
-        newShoppingCarts[productIndex].quantity++
+    if(state.activePage === 'home') {
+        action.payload.event.stopPropagation()
+        action.payload.event.persist()
+        if (productIndex === -1) {
+            newCartItem = { ...product, quantity: 1 }
+            newShoppingCarts = [...state.shoppingCarts, newCartItem]
+        } else {
+            newShoppingCarts = [...state.shoppingCarts]
+            newShoppingCarts[productIndex].quantity++
+        }
+        return { ...state, shoppingCarts: newShoppingCarts }
+    }else if(state.activePage === 'product-detail') {
+        if(productIndex === -1) {
+            newCartItem = {...product}
+            newShoppingCarts = [...state.shoppingCarts,  newCartItem]
+            return {...state, shoppingCarts: newShoppingCarts}
+        }else {
+            alert('Your cart has this product already')
+            return {...state}
+        }
     }
-    return {...state, shoppingCarts: newShoppingCarts}
+
 }
 
 function increasement(state, action) {
-    let newShoppingCarts
-    let productIndex = state.shoppingCarts.findIndex(item => item.id === action.product.id)
-    newShoppingCarts = [...state.shoppingCarts]
-    newShoppingCarts[productIndex].quantity++
-    return {...state, shoppingCarts: newShoppingCarts}
+    if (state.activePage === 'checkout') {
+        let newShoppingCarts
+        let productIndex = state.shoppingCarts.findIndex(item => item.id === action.product.id)
+        newShoppingCarts = [...state.shoppingCarts]
+        newShoppingCarts[productIndex].quantity++
+        return { ...state, shoppingCarts: newShoppingCarts }
+    } else if (state.activePage === 'product-detail') {
+        let newProductDetail = {...state.productDetail}
+        newProductDetail.quantity++
+        return{...state, productDetail: newProductDetail}
+    }
 }
 function decreasement(state, action) {
-    let newShoppingCarts
-    let productIndex = state.shoppingCarts.findIndex(item => item.id === action.product.id)
-    // if(state.shoppingCarts[productIndex].quantity < 2) {
-    //     state.shoppingCarts.splice(productIndex, 1)
-    //     newShoppingCarts = [...state.shoppingCarts]
-    // }else{
-    // }
-    state.shoppingCarts[productIndex].quantity--
-    newShoppingCarts = [...state.shoppingCarts]
-    return {...state, shoppingCarts: newShoppingCarts}
+    if (state.activePage === 'checkout') {
+        let newShoppingCarts
+        let productIndex = state.shoppingCarts.findIndex(item => item.id === action.product.id)
+        newShoppingCarts = [...state.shoppingCarts]
+        newShoppingCarts[productIndex].quantity--
+        return { ...state, shoppingCarts: newShoppingCarts }
+    } else if (state.activePage === 'product-detail') {
+        let newProductDetail = {...state.productDetail}
+        newProductDetail.quantity--
+        return{...state, productDetail: newProductDetail}
+    }
 }
-
 function removeCartItem(state, action) {
     let newShoppingCarts
     let productIndex = state.shoppingCarts.findIndex(item => item.id === action.cartId)
     state.shoppingCarts.splice(productIndex, 1)
     newShoppingCarts = [...state.shoppingCarts]
-    return {...state, shoppingCarts: newShoppingCarts}
+    return { ...state, shoppingCarts: newShoppingCarts }
 }
-
 function changeQuantity(state, action) {
-    let productIndex = state.shoppingCarts.findIndex(product => product.id === action.payload.cartId)
-    let newShoppingCarts = [...state.shoppingCarts]
-    newShoppingCarts[productIndex].quantity = action.payload.newQuantity
-    return {...state, shoppingCarts: newShoppingCarts}
+    // let productIndex = state.shoppingCarts.findIndex(product => product.id === action.payload.cartId)
+    // let newShoppingCarts = [...state.shoppingCarts]
+    // newShoppingCarts[productIndex].quantity = action.payload.newQuantity
+    // return {...state, shoppingCarts: newShoppingCarts}
+    if (state.activePage === 'checkout') {
+        let productIndex = state.shoppingCarts.findIndex(product => product.id === action.payload.cartId)
+        let newShoppingCarts = [...state.shoppingCarts]
+        newShoppingCarts[productIndex].quantity = action.payload.newQuantity
+        return { ...state, shoppingCarts: newShoppingCarts }
+    }else if (state.activePage === 'product-detail') {
+        return {
+            ...state,
+            productDetail: {
+                ...state.productDetail,
+                quantity: action.payload.newQuantity
+            }
+        }
+    }
 }
-
 function setProductDetail(state, action) {
-    return {...state, productDetail: action.product}
+    let newProduct
+    newProduct = { ...action.product, star_rating: 3, quantity: 1 }
+    return { ...state, productDetail: newProduct }
 }
-
 function showIos(state, action) {
     let showIos = state.filter.showOs.ios
     return {
@@ -148,9 +181,9 @@ function showAndroid(state, action) {
 }
 
 function changeMinPrice(state, action) {
-    if(action.value === '' ) {
+    if (action.value === '') {
         console.log('hello')
-        return{
+        return {
             ...state,
             filter: {
                 ...state.filter,
@@ -160,8 +193,8 @@ function changeMinPrice(state, action) {
                 }
             }
         }
-    }else {
-        return{
+    } else {
+        return {
             ...state,
             filter: {
                 ...state.filter,
@@ -174,9 +207,9 @@ function changeMinPrice(state, action) {
     }
 }
 function changeMaxPrice(state, action) {
-    if(action.value === '') {
+    if (action.value === '') {
         console.log('hello')
-        return{
+        return {
             ...state,
             filter: {
                 ...state.filter,
@@ -186,8 +219,8 @@ function changeMaxPrice(state, action) {
                 }
             }
         }
-    }else {
-        return{
+    } else {
+        return {
             ...state,
             filter: {
                 ...state.filter,
@@ -199,8 +232,19 @@ function changeMaxPrice(state, action) {
         }
     }
 }
+
+function starRating(state, action) {
+    return {
+        ...state,
+        productDetail: {
+            ...state.productDetail,
+            star_rating: action.star_number
+        }
+    }
+}
+
 export default function appState(state = initialState, action) {
-    switch(action.type) {
+    switch (action.type) {
         case SET_PRODUCTS:
             return setProducts(state, action)
         case NAVIGATE:
@@ -227,6 +271,8 @@ export default function appState(state = initialState, action) {
             return changeMaxPrice(state, action)
         case SET_DISPLAY_PRODUCTS:
             return setDisPlayProducts(state, action)
+        case STAR_RATING:
+            return starRating(state, action)
         default:
             return state
     }

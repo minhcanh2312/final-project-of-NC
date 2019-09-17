@@ -1,6 +1,7 @@
 import React from 'react'
 import { increasement, decreasement, removeCartItem, changeQuantity} from '../../redux/actions'
 import { connect } from 'react-redux'
+import QuantityChange from '../QuantityChange'
 import './Checkout.css'
 
 function EmptyMessage() {
@@ -31,13 +32,14 @@ class Checkout extends React.Component {
                                             </div>
                                         </div>
                                         <div className="cart-item_price">
-                                            <p>${cartItem.price}</p>
+                                            <p>${cartItem.price}.00</p>
                                         </div>
-                                        <div className="cart-item_quantity">
+                                        {/* <div className="cart-item_quantity">
                                             <button onClick={() => this.props.decreasement(cartItem)}>-</button>
                                             <input type="number" value={cartItem.quantity} onChange={(e) => this.props.changeQuantity(cartItem.id, Number(e.target.value))} />
                                             <button onClick={() => this.props.increasement(cartItem)}>+</button>
-                                        </div>
+                                        </div> */}
+                                        <QuantityChange product={cartItem} />
                                         <div className="remove-cart-item">
                                             <button onClick={() => this.props.removeCartItem(cartItem.id)}>Delete item</button>
                                         </div>

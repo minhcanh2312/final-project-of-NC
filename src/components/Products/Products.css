@@ -38,7 +38,7 @@
     -ms-transition: all .5s ease;
     -o-transition: all .5s ease;
 }
-.addToCart-btn {
+.products .addToCart-btn {
     position: absolute;
     left: 50%;
     bottom: 20px;

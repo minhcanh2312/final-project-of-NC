@@ -12,6 +12,7 @@ export const SHOW_ANDROID = "SHOW_ANDROID"
 export const CHANGE_MIN_PRICE = "CHANGE_MIN_PRICE"
 export const CHANGE_MAX_PRICE = "CHANGE_MAX_PRICE"
 export const SET_DISPLAY_PRODUCTS = "SET_DISPLAY_PRODUCTS"
+export const STAR_RATING = "STAR_RATING"
 
 export function setProducts(products) {
     return {
@@ -95,5 +96,12 @@ export function setDisplayProducts(products) {
     return {
         type: SET_DISPLAY_PRODUCTS,
         products
+    }
+}
+
+export function starRating(star_number) {
+    return {
+        type: STAR_RATING,
+        star_number
     }
 }
