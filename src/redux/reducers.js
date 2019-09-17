@@ -122,11 +122,13 @@ function decreasement(state, action) {
     }
 }
 function removeCartItem(state, action) {
-    let newShoppingCarts
-    let productIndex = state.shoppingCarts.findIndex(item => item.id === action.cartId)
-    state.shoppingCarts.splice(productIndex, 1)
-    newShoppingCarts = [...state.shoppingCarts]
-    return { ...state, shoppingCarts: newShoppingCarts }
+    // let newShoppingCarts
+    // let productIndex = state.shoppingCarts.findIndex(item => item.id === action.cartId)
+    // state.shoppingCarts.splice(productIndex, 1)
+    // newShoppingCarts = [...state.shoppingCarts]
+    // return { ...state, shoppingCarts: newShoppingCarts }
+    let newShoppingCarts = state.shoppingCarts.filter(cartItem => cartItem.id !== action.cartId)
+    return {...state, shoppingCarts: newShoppingCarts}
 }
 function changeQuantity(state, action) {
     // let productIndex = state.shoppingCarts.findIndex(product => product.id === action.payload.cartId)
