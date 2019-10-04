@@ -13,6 +13,7 @@ export const CHANGE_MIN_PRICE = "CHANGE_MIN_PRICE"
 export const CHANGE_MAX_PRICE = "CHANGE_MAX_PRICE"
 export const SET_DISPLAY_PRODUCTS = "SET_DISPLAY_PRODUCTS"
 export const STAR_RATING = "STAR_RATING"
+export const GET_PRODUCTS = "GET_PRODUCTS"
 
 export function setProducts(products) {
     return {
@@ -104,4 +105,8 @@ export function starRating(star_number) {
         type: STAR_RATING,
         star_number
     }
+}
+
+export function getProducts() {
+    return {type: GET_PRODUCTS}
 }

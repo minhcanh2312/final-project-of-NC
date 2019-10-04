@@ -12,8 +12,10 @@ import {
     CHANGE_MIN_PRICE,
     CHANGE_MAX_PRICE,
     SET_DISPLAY_PRODUCTS,
-    STAR_RATING
+    STAR_RATING,
+    GET_PRODUCTS
 } from './actions'
+import {res} from '../api'
 
 const initialState = {
     activePage: 'home',
@@ -245,6 +247,11 @@ function starRating(state, action) {
     }
 }
 
+function getProducts(state) {
+    const newProducts = res.phone_products
+    return {...state, products: newProducts}
+}
+
 export default function appState(state = initialState, action) {
     switch (action.type) {
         case SET_PRODUCTS:
@@ -275,6 +282,8 @@ export default function appState(state = initialState, action) {
             return setDisPlayProducts(state, action)
         case STAR_RATING:
             return starRating(state, action)
+        case GET_PRODUCTS:
+            return getProducts(state, action)
         default:
             return state
     }

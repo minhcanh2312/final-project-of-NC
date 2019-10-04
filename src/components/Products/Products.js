@@ -1,24 +1,25 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { setProducts, addToCart, navigate, setProductDetail, setDisplayProducts } from '../../redux/actions'
+import { setProducts, addToCart, navigate, setProductDetail, setDisplayProducts, getProducts } from '../../redux/actions'
 import axios from 'axios'
 import './Products.css'
 class Products extends Component {
     componentDidMount() {
-        axios.get('http://localhost:3000/phone_products')
-            .then(res => {
-                console.log(res)
+        // axios.get('http://localhost:3000/phone_products')
+        //     .then(res => {
+        //         console.log(res)
 
-                // const products = res.data.data.map(item => ({
-                //     name: item.name,
-                //     id: item.id,
-                //     price: item.final_price,
-                //     img_url: item.img_url
-                // }))
-                const products = res.data
-                this.props.setProducts(products)
-                // this.props.setDisplayProducts(products)
-            })
+        //         const products = res.data.data.map(item => ({
+        //             name: item.name,
+        //             id: item.id,
+        //             price: item.final_price,
+        //             img_url: item.img_url
+        //         }))
+        //         const products = res.data
+        //         this.props.setProducts(products)
+        //         this.props.setDisplayProducts(products)
+        //     })
+        this.props.getProducts()
     }
     render() {
         let {products, filter} = this.props
@@ -61,7 +62,8 @@ const mapDispatchToProps = dispatch => {
         addToCart: (product, e) => dispatch(addToCart(product, e)),
         navigate: page => dispatch(navigate(page)),
         setProductDetail: product => dispatch(setProductDetail(product)),
-        setDisplayProducts: products => dispatch(setDisplayProducts(products))
+        setDisplayProducts: products => dispatch(setDisplayProducts(products)),
+        getProducts: () => dispatch(getProducts())
     }
 }
 
