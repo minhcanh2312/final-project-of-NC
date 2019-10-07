@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import logo from '../../logo.png';
 import './Navbar.css'
 import { connect } from 'react-redux';
-import {navigate} from '../../redux/actions'
+import { navigate } from '../../redux/actions'
 class Navbar extends Component {
     render() {
         let quantity = this.props.shoppingCarts.reduce((sum, item) => {
@@ -15,7 +16,7 @@ class Navbar extends Component {
                 </div>
                 <div className="nav-bar">
                     <ul className="nav-menu">
-                        <li
+                        {/* <li
                             className={this.props.activePage === 'home' ? 'active' : ''}
                             onClick={() => this.props.navigate('home')}
                         >
@@ -32,10 +33,22 @@ class Navbar extends Component {
                             onClick={() => this.props.navigate('contact')}
                         >
                             Contact
+                        </li> */}
+                        <li>
+                            <Link to="/">Home</Link>
+                        </li>
+                        <li>
+                            <Link to="/about">About</Link>
+                        </li>
+                        <li>
+                            <Link to="/contact">Contact</Link>
                         </li>
                     </ul>
                 </div>
-                <div className="cart" onClick={() => this.props.navigate('checkout')}>Cart({quantity})</div>
+                {/* <div className="cart" onClick={() => this.props.navigate('checkout')}>Cart({quantity})</div> */}
+                <div className="cart">
+                    <Link to="/checkout">Cart({quantity})</Link>
+                </div>
             </div>
         )
     }

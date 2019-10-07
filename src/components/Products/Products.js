@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import {Link} from 'react-router-dom'
 import { setProducts, addToCart, navigate, setProductDetail, setDisplayProducts, getProducts } from '../../redux/actions'
-import axios from 'axios'
 import './Products.css'
+
 class Products extends Component {
     componentDidMount() {
         // axios.get('http://localhost:3000/phone_products')
@@ -31,7 +32,8 @@ class Products extends Component {
         return (
             <div className="products">
                  {displayProducts.map(product =>
-                    <div className="single-product" key={product.id} onClick={() => {this.props.navigate('product-detail'); this.props.setProductDetail(product)}}>
+                    // <div className="single-product" key={product.id} onClick={() => {this.props.navigate('product-detail'); this.props.setProductDetail(product)}}>
+                    <Link to="/product-detail" className="single-product" key={product.id}>
                         <div className="img-container">
                             <img src={product.img_url} alt="" />
                             <button className="addToCart-btn" onClick={(e) => this.props.addToCart(product,e)}>Add to cart</button>
@@ -41,7 +43,8 @@ class Products extends Component {
                             <h3 className="name-product">{product.name}</h3>
                             <span className="price">${product.price}</span>
                         </div>
-                    </div>
+                    </Link>
+                    // </div>
                 )}
                 
             </div>
