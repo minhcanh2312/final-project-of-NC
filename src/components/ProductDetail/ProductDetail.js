@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { FaStar } from 'react-icons/fa'
 import './ProductDetail.css'
-import { starRating,increasement, decreasement, changeQuantity, addToCart } from '../../redux/actions'
+import { starRating, addToCart } from '../../redux/actions'
 import QuantityChange from '../QuantityChange'
 
 class ProductDetail extends React.Component {
@@ -38,7 +38,7 @@ class ProductDetail extends React.Component {
                     <div className="entry-product-info">
                         <span className="price">${this.props.productDetail.price}.00</span>
                         <div className="quantiy-and-addToCartBtn">
-                            <QuantityChange product={this.props.productDetail} />
+                            <QuantityChange product={this.props.productDetail} location={location} />
                         </div>
                         <button className="single-addToCart-btn" onClick={(e)=>this.props.addToCart(productDetail, e, location)}>Add to cart</button>
                     </div>
@@ -58,9 +58,9 @@ const mapStateToProps = appState => {
 const mapDispatchToProps = dispatch => {
     return {
         starRating: star_number => dispatch(starRating(star_number)),
-        increasement: product => dispatch(increasement(product)),
-        decreasement: product => dispatch(decreasement(product)),
-        changeQuantity: (id, newQuantity) => dispatch(changeQuantity(id, newQuantity)),
+        // increasement: product => dispatch(increasement(product)),
+        // decreasement: product => dispatch(decreasement(product)),
+        // changeQuantity: (id, newQuantity, location) => dispatch(changeQuantity(id, newQuantity, location)),
         addToCart: (product, e, location) => dispatch(addToCart(product, e, location))
     }
 }

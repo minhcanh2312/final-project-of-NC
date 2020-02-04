@@ -1,5 +1,5 @@
 import React from 'react'
-import { increasement, decreasement, removeCartItem, changeQuantity} from '../../redux/actions'
+import {removeCartItem} from '../../redux/actions'
 import { connect } from 'react-redux'
 import QuantityChange from '../QuantityChange'
 import './Checkout.css'
@@ -12,6 +12,7 @@ class Checkout extends React.Component {
     render() {
         let cartEmpty = this.props.shoppingCarts.length === 0
         let total = this.props.shoppingCarts.reduce((sum, item) => (sum + (item.quantity * item.price)), 0)
+
         return (
             <React.Fragment>
                 {cartEmpty ?
@@ -19,7 +20,6 @@ class Checkout extends React.Component {
                     (
                         <div className="cart-items">
                             {this.props.shoppingCarts.map(cartItem => {
-                                // let subtotal = cartItem.quantity * cartItem.price
 
                                 return (
                                     <div className="cart-item" key={cartItem.id}>
@@ -34,12 +34,7 @@ class Checkout extends React.Component {
                                         <div className="cart-item_price">
                                             <p>${cartItem.price}.00</p>
                                         </div>
-                                        {/* <div className="cart-item_quantity">
-                                            <button onClick={() => this.props.decreasement(cartItem)}>-</button>
-                                            <input type="number" value={cartItem.quantity} onChange={(e) => this.props.changeQuantity(cartItem.id, Number(e.target.value))} />
-                                            <button onClick={() => this.props.increasement(cartItem)}>+</button>
-                                        </div> */}
-                                        <QuantityChange product={cartItem} />
+                                        <QuantityChange product={cartItem} location={this.props.location} />
                                         <div className="remove-cart-item">
                                             <button onClick={() => this.props.removeCartItem(cartItem.id)}>Delete item</button>
                                         </div>
@@ -67,10 +62,10 @@ const mapStateToProps = appState => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        increasement: product => dispatch(increasement(product)),
-        decreasement: product => dispatch(decreasement(product)),
+        // increasement: product => dispatch(increasement(product)),
+        // decreasement: product => dispatch(decreasement(product)),
         removeCartItem: product => dispatch(removeCartItem(product)),
-        changeQuantity: (cardId, newQuantity) => dispatch(changeQuantity(cardId, newQuantity))
+        // changeQuantity: (cardId, newQuantity) => dispatch(changeQuantity(cardId, newQuantity))
     }
 }
 

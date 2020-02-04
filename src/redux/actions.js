@@ -36,19 +36,19 @@ export function addToCart( product, event, location ) {
     }
 }
 
-export function increasement(product) {
+export function increasement(product, location) {
     return {
         type: INCREASEMENT,
-        product
+        payload: {product, location}
     }
 }
-export function decreasement(product) {
+export function decreasement(product, location) {
     if(product.quantity === 1) {
         return removeCartItem(product.id)
     }
     return {
         type: DECREASEMENT,
-        product
+        payload: {product, location}
     }
 }
 
@@ -59,13 +59,13 @@ export function removeCartItem(cartId) {
     }
 }
 
-export function changeQuantity(cartId, newQuantity) {
+export function changeQuantity(cartId, newQuantity, location) {
     if(newQuantity === 0) {
         return removeCartItem(cartId)
     }
     return {
         type: CHANGE_QUANTITY,
-        payload: {cartId, newQuantity}
+        payload: {cartId, newQuantity, location}
     }
 }
 

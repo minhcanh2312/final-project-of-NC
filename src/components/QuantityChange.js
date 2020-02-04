@@ -7,9 +7,9 @@ class QuantityChange extends React.Component {
         return (
             <React.Fragment>
                 <div className="cart-item_quantity">
-                    <button onClick={() => this.props.decreasement(this.props.product)}>-</button>
-                    <input type="number" value={this.props.product.quantity} onChange={(e) => this.props.changeQuantity(this.props.product.id, Number(e.target.value))} />
-                    <button onClick={() => this.props.increasement(this.props.product)}>+</button>
+                    <button onClick={() => this.props.decreasement(this.props.product, this.props.location)}>-</button>
+                    <input type="number" value={this.props.product.quantity} onChange={(e) => this.props.changeQuantity(this.props.product.id, Number(e.target.value), this.props.location)} />
+                    <button onClick={() => this.props.increasement(this.props.product, this.props.location)}>+</button>
                 </div>
             </React.Fragment>
         )
@@ -25,9 +25,9 @@ const mapStateToProps = appState => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        decreasement: product => dispatch(decreasement(product)),
-        increasement: product => dispatch(increasement(product)),
-        changeQuantity: (id, newQuantity) => dispatch(changeQuantity(id, newQuantity))
+        decreasement: (product, location) => dispatch(decreasement(product, location)),
+        increasement: (product, location) => dispatch(increasement(product, location)),
+        changeQuantity: (id, newQuantity, location) => dispatch(changeQuantity(id, newQuantity, location))
     }
 }
 

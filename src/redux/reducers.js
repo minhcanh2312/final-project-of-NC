@@ -18,7 +18,6 @@ import {
 import {res} from '../api'
 
 const initialState = {
-    activePage: 'home',
     products: [],
     shoppingCarts: [],
     productDetail: {},
@@ -43,14 +42,6 @@ function setProducts(state, action) {
 }
 
 function setDisPlayProducts(state, action) {
-    // let displayProducts = action.products.filter(product => {
-    //     let {min, max} = state.filter.price
-    //     let showOs = state.filter.showOs[product.os]
-
-    //     return  product.price > min && product.price <= max && showOs
-    //     // return product.price > min 
-    // })
-    // return {...state, displayProducts: displayProducts}
     return {
         ...state,
         filter: {
@@ -73,8 +64,6 @@ function addToCart(state, action) {
     let newCartItem, newShoppingCarts
     let productIndex = state.shoppingCarts.findIndex(item => item.id === product.id)
     if(location.pathname === '/') {
-        // action.payload.event.stopPropagation()
-        // action.payload.event.persist()
         event.preventDefault()
         if (productIndex === -1) {
             newCartItem = { ...product, quantity: 1 }
@@ -98,52 +87,50 @@ function addToCart(state, action) {
 }
 
 function increasement(state, action) {
-    if (state.activePage === 'checkout') {
+    let {product, location} = action.payload
+    if (location.pathname === '/checkout') {
         let newShoppingCarts
-        let productIndex = state.shoppingCarts.findIndex(item => item.id === action.product.id)
+        let productIndex = state.shoppingCarts.findIndex(item => item.id === product.id)
         newShoppingCarts = [...state.shoppingCarts]
         newShoppingCarts[productIndex].quantity++
         return { ...state, shoppingCarts: newShoppingCarts }
-    } else if (state.activePage === 'product-detail') {
+    } else if (location.pathname === '/product-detail') {
         let newProductDetail = {...state.productDetail}
         newProductDetail.quantity++
         return{...state, productDetail: newProductDetail}
     }
 }
 function decreasement(state, action) {
-    if (state.activePage === 'checkout') {
+    let {product, location} = action.payload
+    if (location.pathname === '/checkout') {
         let newShoppingCarts
-        let productIndex = state.shoppingCarts.findIndex(item => item.id === action.product.id)
+        let productIndex = state.shoppingCarts.findIndex(item => item.id === product.id)
         newShoppingCarts = [...state.shoppingCarts]
         newShoppingCarts[productIndex].quantity--
         return { ...state, shoppingCarts: newShoppingCarts }
-    } else if (state.activePage === 'product-detail') {
+    } else if (location.pathname === '/product-detail') {
         let newProductDetail = {...state.productDetail}
         newProductDetail.quantity--
         return{...state, productDetail: newProductDetail}
     }
 }
 function removeCartItem(state, action) {
-    // let newShoppingCarts
-    // let productIndex = state.shoppingCarts.findIndex(item => item.id === action.cartId)
-    // state.shoppingCarts.splice(productIndex, 1)
-    // newShoppingCarts = [...state.shoppingCarts]
-    // return { ...state, shoppingCarts: newShoppingCarts }
     let newShoppingCarts = state.shoppingCarts.filter(cartItem => cartItem.id !== action.cartId)
     return {...state, shoppingCarts: newShoppingCarts}
 }
 function changeQuantity(state, action) {
-    if (state.activePage === 'checkout') {
-        let productIndex = state.shoppingCarts.findIndex(product => product.id === action.payload.cartId)
+    let {cartId, location, newQuantity} = action.payload
+    if (location.pathname === '/checkout') {
+        let productIndex = state.shoppingCarts.findIndex(product => product.id === cartId)
         let newShoppingCarts = [...state.shoppingCarts]
-        newShoppingCarts[productIndex].quantity = action.payload.newQuantity
+        newShoppingCarts[productIndex].quantity = newQuantity
         return { ...state, shoppingCarts: newShoppingCarts }
-    }else if (state.activePage === 'product-detail') {
+    }else if (location.pathname === '/product-detail') {
         return {
             ...state,
             productDetail: {
                 ...state.productDetail,
-                quantity: action.payload.newQuantity
+                quantity: newQuantity
             }
         }
     }
@@ -283,5 +270,4 @@ export default function appState(state = initialState, action) {
         default:
             return state
     }
-
 }
