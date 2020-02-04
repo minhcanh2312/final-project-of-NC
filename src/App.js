@@ -9,9 +9,7 @@ class App extends React.Component {
     return (
       <Router>
         <Navbar />
-        {/* <div className="wrapper"> */}
         <MainContent />
-        {/* </div> */}
       </Router>      
     )
   }

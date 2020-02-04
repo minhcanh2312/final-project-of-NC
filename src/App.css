@@ -9,7 +9,6 @@ body{
   color: rgba(0,0,0,.5)
 }
 .wrapper{
-  /* min-width: 1600px; */
   max-width: 1380px;
   width: 100%;
   margin: 0 auto

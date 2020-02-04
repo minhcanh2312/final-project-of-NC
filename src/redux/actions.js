@@ -29,10 +29,10 @@ export function navigate(page) {
     }
 }
 
-export function addToCart(product, event) {
+export function addToCart( product, event, location ) {
     return {
         type: ADD_TO_CART,
-        payload: {product, event}
+        payload: {product, event, location}
     }
 }
 

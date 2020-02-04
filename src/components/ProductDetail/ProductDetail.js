@@ -8,6 +8,7 @@ import QuantityChange from '../QuantityChange'
 class ProductDetail extends React.Component {
     render() {
         let arr = [1, 2, 3, 4, 5]
+        let {productDetail, location} = this.props
         return (
             <div className="product-detail">
                 <div className="img-container left-box">
@@ -27,37 +28,7 @@ class ProductDetail extends React.Component {
                                         <FaStar />
                                     </span>
                                 )
-                            })}
-                            {/* <span 
-                            className={`icon-star ${this.props.productDetail.star_rating > 0 ? 'active' : ''}`}
-                            onClick={()=>this.props.starRating(1)}
-                        >
-                            <FaStar />
-                        </span>
-                        <span 
-                            className={`icon-star ${this.props.productDetail.star_rating > 1 ? 'active' : ''}`}
-                            onClick={()=>this.props.starRating(2)}
-                        >
-                            <FaStar />
-                        </span>
-                        <span 
-                            className={`icon-star ${this.props.productDetail.star_rating > 2 ? 'active' : ''}`}
-                            onClick={()=>this.props.starRating(3)}
-                        >
-                            <FaStar />
-                        </span>
-                        <span 
-                            className={`icon-star ${this.props.productDetail.star_rating > 3 ? 'active' : ''}`}
-                            onClick={()=>this.props.starRating(4)}
-                        >
-                            <FaStar />
-                        </span>
-                        <span 
-                            className={`icon-star ${this.props.productDetail.star_rating > 4 ? 'active' : ''}`}
-                            onClick={()=>this.props.starRating(5)}
-                        >
-                            <FaStar />
-                        </span> */}
+                            })}                    
                         </div>
                         <ul className="description-list">
                             <li className="description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequuntur enim architecto corporis exercitationem. Libero sed minima ut nihil architecto quae doloremque atque nam accusantium deleniti ipsa quis, tempora aliquid optio iusto tempore, enim, sit consequatur.</li>
@@ -69,7 +40,7 @@ class ProductDetail extends React.Component {
                         <div className="quantiy-and-addToCartBtn">
                             <QuantityChange product={this.props.productDetail} />
                         </div>
-                        <button className="single-addToCart-btn" onClick={()=>this.props.addToCart(this.props.productDetail)}>Add to cart</button>
+                        <button className="single-addToCart-btn" onClick={(e)=>this.props.addToCart(productDetail, e, location)}>Add to cart</button>
                     </div>
                 </div>
             </div>
@@ -90,7 +61,7 @@ const mapDispatchToProps = dispatch => {
         increasement: product => dispatch(increasement(product)),
         decreasement: product => dispatch(decreasement(product)),
         changeQuantity: (id, newQuantity) => dispatch(changeQuantity(id, newQuantity)),
-        addToCart: product => dispatch(addToCart(product))
+        addToCart: (product, e, location) => dispatch(addToCart(product, e, location))
     }
 }
 

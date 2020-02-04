@@ -2,11 +2,11 @@ import React from 'react'
 import Sidebar from './Sidebar/Sidebar';
 import Products from './Products/Products'
 
-const Home = () => {
+const Home = (props) => {
     return (
         <React.Fragment>
             <Sidebar />
-            <Products />
+            <Products location={props.location} />
         </React.Fragment>
     )
 }

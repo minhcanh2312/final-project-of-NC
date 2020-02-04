@@ -69,13 +69,13 @@ function navigate(state, action) {
 }
 
 function addToCart(state, action) { 
-    let { product } = action.payload
-    let newCartItem
-    let newShoppingCarts
+    let { product, event, location } = action.payload
+    let newCartItem, newShoppingCarts
     let productIndex = state.shoppingCarts.findIndex(item => item.id === product.id)
-    if(state.activePage === 'home') {
-        action.payload.event.stopPropagation()
-        action.payload.event.persist()
+    if(location.pathname === '/') {
+        // action.payload.event.stopPropagation()
+        // action.payload.event.persist()
+        event.preventDefault()
         if (productIndex === -1) {
             newCartItem = { ...product, quantity: 1 }
             newShoppingCarts = [...state.shoppingCarts, newCartItem]
@@ -84,7 +84,8 @@ function addToCart(state, action) {
             newShoppingCarts[productIndex].quantity++
         }
         return { ...state, shoppingCarts: newShoppingCarts }
-    }else if(state.activePage === 'product-detail') {
+    }else if(location.pathname === '/product-detail') {
+        event.preventDefault()
         if(productIndex === -1) {
             newCartItem = {...product}
             newShoppingCarts = [...state.shoppingCarts,  newCartItem]
@@ -94,7 +95,6 @@ function addToCart(state, action) {
             return {...state}
         }
     }
-
 }
 
 function increasement(state, action) {
@@ -133,10 +133,6 @@ function removeCartItem(state, action) {
     return {...state, shoppingCarts: newShoppingCarts}
 }
 function changeQuantity(state, action) {
-    // let productIndex = state.shoppingCarts.findIndex(product => product.id === action.payload.cartId)
-    // let newShoppingCarts = [...state.shoppingCarts]
-    // newShoppingCarts[productIndex].quantity = action.payload.newQuantity
-    // return {...state, shoppingCarts: newShoppingCarts}
     if (state.activePage === 'checkout') {
         let productIndex = state.shoppingCarts.findIndex(product => product.id === action.payload.cartId)
         let newShoppingCarts = [...state.shoppingCarts]
