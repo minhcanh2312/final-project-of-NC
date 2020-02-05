@@ -11,13 +11,7 @@ class MainContent extends Component {
     render() {
         return (
             <div className="wrapper">
-                <div className="main-content">
-                    {/* {this.props.activePage === 'home' ? <Home /> : ''}
-                    {this.props.activePage === 'about' ? <About /> : ''}
-                    {this.props.activePage === 'contact' ? <Contact /> : ''}
-                    {this.props.activePage === 'checkout' ? <Checkout /> : ''}
-                    {this.props.activePage === 'product-detail' ? <ProductDetail /> : ''} */}
-
+                <div className="main-content">                    
                     <Switch>
                         <Route exact path="/" component={Home} />
                         <Route path="/about" component={About} />
