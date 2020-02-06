@@ -137,7 +137,11 @@ function changeQuantity(state, action) {
 }
 function setProductDetail(state, action) {
     let newProduct
-    newProduct = { ...action.product, star_rating: 3, quantity: 1 }
+    if(!action.product.star_rating) {
+        newProduct = {...action.product, star_rating: 3, quantity: 1}
+    }else {
+        newProduct = { ...action.product, quantity: 1 }
+    }
     return { ...state, productDetail: newProduct }
 }
 function showIos(state, action) {
@@ -221,13 +225,17 @@ function changeMaxPrice(state, action) {
 }
 
 function starRating(state, action) {
-    return {
-        ...state,
-        productDetail: {
-            ...state.productDetail,
-            star_rating: action.star_number
+    let productIndex = state.products.findIndex(product => product.id === action.product.id)
+        let updateProducts = state.products
+        updateProducts[productIndex].star_rating = action.star_number
+        return {
+            ...state,
+            products: updateProducts,
+            productDetail: {
+                ...state.productDetail,
+                star_rating: action.star_number
+            }
         }
-    }
 }
 
 function getProducts(state) {

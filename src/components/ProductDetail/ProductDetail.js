@@ -18,12 +18,12 @@ class ProductDetail extends React.Component {
                     <div className="title-and-rating">
                         <h3 className="name-product">{this.props.productDetail.name}</h3>
                         <div className="star-rating">
-                            {arr.map(item => {
+                            {arr.map(number => {
                                 return (
                                     <span
-                                        className={`icon-star ${this.props.productDetail.star_rating >= item ? 'active' : ''}`}
-                                        onClick={() => this.props.starRating(item)}
-                                        key={item}
+                                        className={`icon-star ${productDetail.star_rating >= number ? 'active' : ''}`}
+                                        onClick={() => this.props.starRating(number, productDetail)}
+                                        key={number}
                                     >
                                         <FaStar />
                                     </span>
@@ -57,7 +57,7 @@ const mapStateToProps = appState => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        starRating: star_number => dispatch(starRating(star_number)),
+        starRating: (star_number, product) => dispatch(starRating(star_number, product)),
         // increasement: product => dispatch(increasement(product)),
         // decreasement: product => dispatch(decreasement(product)),
         // changeQuantity: (id, newQuantity, location) => dispatch(changeQuantity(id, newQuantity, location)),

@@ -100,10 +100,11 @@ export function setDisplayProducts(products) {
     }
 }
 
-export function starRating(star_number) {
+export function starRating(star_number, product) {
     return {
         type: STAR_RATING,
-        star_number
+        star_number,
+        product
     }
 }
 
